@@ -10,10 +10,10 @@
         <parameter name="deviceName" value="Any device name"></parameter>
         <classes>
             <class name="qa.mobile.test.LoginTests">
-                <methods>
-                    <include name="invalidUserName"/>
-                    <include name="successfulLogin"/>
-                </methods>
+<!--                <methods>-->
+<!--                    <include name="invalidUserName"/>-->
+<!--                    <include name="successfulLogin"/>-->
+<!--                </methods>-->
             </class>
         </classes>
     </test>

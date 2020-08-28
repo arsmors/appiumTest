@@ -19,13 +19,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
     protected static AppiumDriver driver;
     protected static Properties props;
+    protected static HashMap<String, String> strings = new HashMap<String, String>();
     InputStream inputStream;
+    InputStream stringsis;
+    TestUtils utils;
 
     public BaseTest() {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -34,29 +38,45 @@ public class BaseTest {
 
     @Parameters({"platformName", "platformVersion", "deviceName"})
     @BeforeTest
-    public void beforeTest(String platformName, String platformVersion, String deviceName) throws IOException {
-        props = new Properties();
-        String propFileName = "config.properties";
+    public void beforeTest(String platformName, String platformVersion, String deviceName) throws Exception {
+        try {
+            props = new Properties();
+            String propFileName = "config.properties";
+            String xmlFileName = "strings/strings.xml";
 
-        inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
-        props.load(inputStream);
+            inputStream = getClass().getClassLoader().getResourceAsStream(propFileName);
+            props.load(inputStream);
 
-        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
-        desiredCapabilities.setCapability("platformName", platformName);
-        desiredCapabilities.setCapability("platformVersion", platformVersion);
-        desiredCapabilities.setCapability("deviceName", deviceName);
-        desiredCapabilities.setCapability("automationName", props.getProperty("androidAutomationName"));
-        desiredCapabilities.setCapability("appPackage", props.getProperty("androidAppPackage"));
-        desiredCapabilities.setCapability("appActivity", props.getProperty("androidAppActivity"));
+            stringsis = getClass().getClassLoader().getResourceAsStream(xmlFileName);
+            utils = new TestUtils();
+            strings = utils.parseStringXML(stringsis);
 
-        URL appUrl = getClass().getClassLoader().getResource(props.getProperty("androidAppLocation"));
-        desiredCapabilities.setCapability("app", appUrl);
+            DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+            desiredCapabilities.setCapability("platformName", platformName);
+            desiredCapabilities.setCapability("platformVersion", platformVersion);
+            desiredCapabilities.setCapability("deviceName", deviceName);
+            desiredCapabilities.setCapability("automationName", props.getProperty("androidAutomationName"));
+            desiredCapabilities.setCapability("appPackage", props.getProperty("androidAppPackage"));
+            desiredCapabilities.setCapability("appActivity", props.getProperty("androidAppActivity"));
 
-        URL url = new URL(props.getProperty("appiumUrl"));
+            URL appUrl = getClass().getClassLoader().getResource(props.getProperty("androidAppLocation"));
+            desiredCapabilities.setCapability("app", appUrl);
 
-        driver = new AndroidDriver(url, desiredCapabilities);
-        String sessionId = driver.getSessionId().toString();
-//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            URL url = new URL(props.getProperty("appiumUrl"));
+
+            driver = new AndroidDriver(url, desiredCapabilities);
+            String sessionId = driver.getSessionId().toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            if (inputStream != null) {
+                inputStream.close();
+            }
+            if(stringsis != null) {
+                stringsis.close();
+            }
+        }
     }
 
     public void waitForVisibility(MobileElement e) {

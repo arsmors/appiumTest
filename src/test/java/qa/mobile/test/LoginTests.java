@@ -56,7 +56,7 @@ public class LoginTests extends BaseTest {
         loginPage.pressLoginBtn();
 
         String actualErrTxt = loginPage.getErrorText();
-        String expectedErrTxt = "Username and password do not match any user in this service.";
+        String expectedErrTxt = strings.get("err_invalid_username_or_password");
 
         Assert.assertEquals(actualErrTxt, expectedErrTxt, "creds are correct");
     }
@@ -68,7 +68,7 @@ public class LoginTests extends BaseTest {
         productsPage = loginPage.pressLoginBtn();
 
         String actualProductTitle = productsPage.getTitle();
-        String expectedProductTitle = "PRODUCTS";
+        String expectedProductTitle = strings.get("product_title");
 
         Assert.assertEquals(actualProductTitle, expectedProductTitle, "creds are not correct");
     }

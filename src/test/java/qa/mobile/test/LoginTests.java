@@ -9,6 +9,8 @@ import qa.mobile.pages.LoginPage;
 import qa.mobile.pages.ProductsPage;
 import sun.rmi.runtime.Log;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Method;
 
 public class LoginTests extends BaseTest {

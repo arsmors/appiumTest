@@ -34,6 +34,7 @@ public class LoginTests extends BaseTest {
             loginUsers = new JSONObject(tokener);
         } catch (Exception e) {
             e.printStackTrace();
+            throw e;
         } finally {
             if (datais != null) {
                 datais.close();
@@ -59,6 +60,7 @@ public class LoginTests extends BaseTest {
         String expectedErrTxt = strings.get("err_invalid_username_or_password");
 
         Assert.assertEquals(actualErrTxt, expectedErrTxt, "creds are correct");
+//        driver.quit();
     }
 
     @Test

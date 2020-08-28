@@ -4,16 +4,30 @@
     <listeners>
         <listener class-name="qa.mobile.listeners.TestListener"></listener>
     </listeners>
+<!--        <test name="Tests">-->
+<!--            <parameter name="platformName" value="Android"></parameter>-->
+<!--            <parameter name="platformVersion" value="10.0"></parameter>-->
+<!--            <parameter name="deviceName" value="Any device name"></parameter>-->
+<!--            <classes>-->
+<!--                <class name="qa.mobile.test.LoginTests">-->
+<!--    &lt;!&ndash;                <methods>&ndash;&gt;-->
+<!--    &lt;!&ndash;                    <include name="invalidUserName"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;                    <include name="successfulLogin"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;                </methods>&ndash;&gt;-->
+<!--                </class>-->
+<!--            </classes>-->
+<!--        </test>-->
+
     <test name="Tests">
-        <parameter name="platformName" value="Android"></parameter>
-        <parameter name="platformVersion" value="10.0"></parameter>
-        <parameter name="deviceName" value="Any device name"></parameter>
+        <parameter name="platformName" value="iOS"></parameter>
+        <parameter name="platformVersion" value="13.6"></parameter>
+        <parameter name="deviceName" value="iPhone 11"></parameter>
         <classes>
             <class name="qa.mobile.test.LoginTests">
-<!--                <methods>-->
-<!--                    <include name="invalidUserName"/>-->
-<!--                    <include name="successfulLogin"/>-->
-<!--                </methods>-->
+                <methods>
+                    <include name="invalidUserName"/>
+                    <include name="successfulLogin"/>
+                </methods>
             </class>
         </classes>
     </test>

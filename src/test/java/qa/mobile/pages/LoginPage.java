@@ -6,7 +6,7 @@ import qa.mobile.BaseTest;
 
 public class LoginPage extends BaseTest {
 
-    @AndroidFindBy (accessibility = "test-Username1") private MobileElement usernameTxtFld;
+    @AndroidFindBy (accessibility = "test-Username") private MobileElement usernameTxtFld;
     @AndroidFindBy (accessibility = "test-Password") private MobileElement passwordTxtFld;
     @AndroidFindBy (accessibility = "test-LOGIN") private MobileElement loginBtn;
     @AndroidFindBy (xpath = "//android.view.ViewGroup[@content-desc=\"test-Error message\"]/android.widget.TextView") private MobileElement errTxt;

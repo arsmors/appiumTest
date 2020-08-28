@@ -12,7 +12,7 @@
             <class name="qa.mobile.test.LoginTests">
                 <methods>
                     <include name="invalidUserName"/>
-<!--                    <exclude name="successfulLogin"/>-->
+                    <include name="successfulLogin"/>
                 </methods>
             </class>
         </classes>

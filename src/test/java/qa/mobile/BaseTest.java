@@ -1,6 +1,7 @@
 package qa.mobile;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.InteractsWithApps;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -134,6 +135,14 @@ public class BaseTest {
         }
         return null;
 
+    }
+
+    public void closeApp() {
+        ((InteractsWithApps) driver).closeApp();
+    }
+
+    public void launchApp() {
+        ((InteractsWithApps) driver).launchApp();
     }
 
     @AfterTest

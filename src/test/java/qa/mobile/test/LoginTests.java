@@ -40,6 +40,8 @@ public class LoginTests extends BaseTest {
                 datais.close();
             }
         }
+        closeApp();
+        launchApp();
     }
 
 

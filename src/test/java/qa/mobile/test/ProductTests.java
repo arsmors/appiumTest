@@ -3,6 +3,7 @@ package qa.mobile.test;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -53,14 +54,20 @@ public class ProductTests extends BaseTest {
     public void beforeMethod(Method m) {
         loginPage = new LoginPage();
         System.out.println("\n" + "starting test: " + m.getName() + "\n");
+
+        productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"),
+                loginUsers.getJSONObject("validUser").getString("password"));
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        settingsPage = productsPage.pressSettingsBtn();
+        loginPage = settingsPage.pressLogoutBtn();
     }
 
     @Test
     public void validateProductOnProductsPage() {
         SoftAssert sa = new SoftAssert();
-
-        productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"),
-                loginUsers.getJSONObject("validUser").getString("password"));
 
         String SLBTitle = productsPage.getSLBTitle();
         sa.assertEquals(SLBTitle, strings.get("products_page_slb_title"));
@@ -68,18 +75,12 @@ public class ProductTests extends BaseTest {
         String SLBPrice = productsPage.getSLBPrice();
         sa.assertEquals(SLBPrice, strings.get("products_page_slb_price"));
 
-        settingsPage = productsPage.pressSettingsBtn();
-        loginPage = settingsPage.pressLogoutBtn();
-
         sa.assertAll();
     }
 
     @Test
     public void validateProductOnProductDetailsPage() {
         SoftAssert sa = new SoftAssert();
-
-        productsPage = loginPage.login(loginUsers.getJSONObject("validUser").getString("username"),
-                loginUsers.getJSONObject("validUser").getString("password"));
 
         productDetailsPage = productsPage.pressSLBTitle();
 
@@ -90,9 +91,6 @@ public class ProductTests extends BaseTest {
         sa.assertEquals(SLBPrice, strings.get("products_details_page_slb_text"));
 
         productsPage = productDetailsPage.pressBackToProductsBtn();
-
-        settingsPage = productsPage.pressSettingsBtn();
-        loginPage = settingsPage.pressLogoutBtn();
 
         sa.assertAll();
     }
